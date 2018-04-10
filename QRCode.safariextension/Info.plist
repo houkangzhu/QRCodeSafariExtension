@@ -52,7 +52,7 @@
 	<key>Companion Bundle Identifier</key>
 	<array/>
 	<key>Description</key>
-	<string>将当前浏览页面链接生成二维码。</string>
+	<string>将当前浏览页面链接生成二维码，方便手机打开。</string>
 	<key>DeveloperIdentifier</key>
 	<string>CF5GR8SZF9</string>
 	<key>ExtensionInfoDictionaryVersion</key>
@@ -68,6 +68,6 @@
 		</dict>
 	</dict>
 	<key>Website</key>
-	<string>https://github.com/houkangzhu</string>
+	<string>https://github.com/houkangzhu/QRCodeSafariExtension</string>
 </dict>
 </plist>
