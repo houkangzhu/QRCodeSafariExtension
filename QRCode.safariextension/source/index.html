@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>hello world!</title>
+	<meta charset="utf-8"/>
+	<script type="text/javascript" src="qrcode.min.js"></script>
+	<style type="text/css">
+		#container{
+			background: white;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			padding-top: 10px;
+		}
+		#title{
+			color: #7B72E9;
+		}
+		#url_detail{
+			margin: 10px;
+			width:80%;
+			height: 20px;
+			outline: 0;
+    		border: 1px solid #7B72E9;
+    		box-shadow: 0px 0px 6px 0px #7B72E9;
+		}
+		#qrcode_content{
+			position: relative;
+			/*background: yellow; */
+			width: 100%; 
+		}
+		#generate_btn{
+			position: absolute;
+			left: 0; bottom: 0; right: 0; top: 0;
+			width: 100px; height: 60px;
+			margin: auto;
+			text-align: center;
+			line-height: 60px;
+			font-size: 28px;
+			border-radius: 100px;
+			background-color: #7B72E9;
+			border-color: #7B72E9;
+			color: white;
+			box-shadow: 0px 0px 6px 0px #7B72E9;
+			cursor: pointer;
+		},
+	</style>
+</head>
+<body>
+	<div id="container">
+		<b id="title"></b>
+		<input id="url_detail" type="text" onkeypress="onPressEnter(event)"/>
+		<div id="qrcode_content">
+			<div id="qrcode" style="padding: 10px;"></div>
+			<a id="generate_btn" onclick="generateCode()">生 成</a>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		safari.application.addEventListener("validate", validateHandler, true);
+		var qrcode = new QRCode(document.getElementById("qrcode"), {
+			render : "canvas"
+		});
+
+		function validateHandler(event) {
+			if (event.command === "showQRCode") {
+				showQRcode(safari.application.activeBrowserWindow.activeTab.url);
+			}
+		}
+
+		function showQRcode(currentUrl) {
+			var isEmpty = (!currentUrl || currentUrl.lenth == 0);
+			setQRCodeHidden(isEmpty);
+			if (isEmpty) {
+				setTitle("输入地址，生成二维码：");
+				setUrlDetail("");
+			} else {
+				setTitle("扫描二维码，打开链接");
+				setUrlDetail(currentUrl);
+				qrcode.makeCode(currentUrl);
+			}
+		}
+
+		function generateCode() {
+			var inputUrl = document.getElementById("url_detail").value;
+			if (!inputUrl || inputUrl.lenth == 0) {
+				setTitle("请输入链接");
+			} else {
+				showQRcode(inputUrl);
+			}
+		}
+
+		function setTitle(title) {
+			document.getElementById("title").innerHTML = title;
+		}
+
+		function setUrlDetail(url) {
+			document.getElementById("url_detail").value = url;
+		}
+
+		function setQRCodeHidden(hidden) {
+			document.getElementById("qrcode").style.visibility = hidden ? "hidden" : "visible";
+			document.getElementById("generate_btn").style.visibility = !hidden ? "hidden" : "visible";
+		}
+
+		function onPressEnter(event) {
+			var event = event || window.event;
+			if(event.keyCode == 13){
+				generateCode();
+			}
+		}
+
+	</script>
+</body>
+</html>
