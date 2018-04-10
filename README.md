@@ -1,4 +1,5 @@
-#QRCode.SafariExtension
+# QRCode.SafariExtension
+
 **1.这是一个safari插件！**
 
 * 可以将当前打开的页面生成二维码
